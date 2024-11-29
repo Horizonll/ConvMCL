@@ -25,6 +25,11 @@ class TurtleBot4FirstNode(Node):
             self.amcl_pose_callback,
             qos_profile_sensor_data,
         )
+        self.initial_pose_publisher = self.create_publisher(
+            PoseWithCovarianceStamped,
+            "/initialpose",
+            qos_profile_sensor_data,
+        )
         self.sim_pose = None
         self.amcl_pose = None
         self.errors = []
@@ -65,7 +70,6 @@ class TurtleBot4FirstNode(Node):
         try:
             with open(filename, mode="w", newline="") as file:
                 writer = csv.writer(file)
-                writer.writerow(["Error (m)"])
                 writer.writerows([[error] for error in self.errors])
         except IOError as e:
             self.get_logger().error(f"Failed to save data: {e}")
@@ -81,6 +85,14 @@ class TurtleBot4FirstNode(Node):
             plt.savefig(filename)
         except IOError as e:
             self.get_logger().error(f"Failed to save SVG: {e}")
+
+    def publish_initial_pose(self, pose):
+        initial_pose_msg = PoseWithCovarianceStamped()
+        initial_pose_msg.header.stamp = self.get_clock().now().to_msg()
+        initial_pose_msg.header.frame_id = "map"
+        initial_pose_msg.pose.pose = pose
+        self.initial_pose_publisher.publish(initial_pose_msg)
+        self.get_logger().info("Published initial pose")
 
 
 def main(args=None):
