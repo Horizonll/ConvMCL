@@ -21,6 +21,7 @@ setup(
         "console_scripts": [
             "recorder = convmcl.recorder:main",
             "nav_through_poses = convmcl.nav_through_poses:main",
+            "nav_recorder = convmcl.nav_recorder:main",
         ],
     },
 )
