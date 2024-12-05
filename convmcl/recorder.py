@@ -6,6 +6,9 @@ from rclpy.qos import qos_profile_sensor_data
 import csv
 import os
 from datetime import datetime
+import math
+
+import rclpy.wait_for_message
 
 
 class DataRecorder(Node):
@@ -42,6 +45,10 @@ class DataRecorder(Node):
                     self.sim_pose.position.y,
                     self.amcl_pose.position.x,
                     self.amcl_pose.position.y,
+                    math.sqrt(
+                        (self.sim_pose.position.x - self.amcl_pose.position.x) ** 2
+                        + (self.sim_pose.position.y - self.amcl_pose.position.y) ** 2
+                    ),
                 )
             )
 
@@ -52,7 +59,7 @@ class DataRecorder(Node):
         filepath = os.path.join(directory, filename)
         with open(filepath, mode="w", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow(["real_x", "real_y", "amcl_x", "amcl_y"])
+            writer.writerow(["real_x", "real_y", "amcl_x", "amcl_y", "error"])
             writer.writerows(self.pose_list)
         print(f"Data saved to {filepath}")
 
