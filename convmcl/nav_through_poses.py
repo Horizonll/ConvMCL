@@ -17,8 +17,6 @@ def main():
     navigator.waitUntilNav2Active()
     goal_pose = []
     goal_pose.append(navigator.getPoseStamped([8.2, 9.4], TurtleBot4Directions.WEST))
-    # goal_pose.append(navigator.getPoseStamped([-5.0, -6.0], TurtleBot4Directions.EAST))
-    # goal_pose.append(navigator.getPoseStamped([-2.0, 1.0], TurtleBot4Directions.SOUTH))
     navigator.undock()
     print("undocked")
     time.sleep(1)
