@@ -13,7 +13,7 @@ import rclpy.wait_for_message
 
 class DataRecorder(Node):
     def __init__(self):
-        super().__init__("data_recorder")
+        super().__init__("record")
         self.sim_ground_truth_pose_subscriber = self.create_subscription(
             Odometry,
             "/sim_ground_truth_pose",
