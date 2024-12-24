@@ -38,18 +38,20 @@ class DataRecorder(Node):
 
     def record(self):
         if self.sim_pose and self.amcl_pose:
+            erroe = math.sqrt(
+                (self.sim_pose.position.x - self.amcl_pose.position.x) ** 2
+                + (self.sim_pose.position.y - self.amcl_pose.position.y) ** 2
+            )
             self.pose_list.append(
                 (
                     self.sim_pose.position.x,
                     self.sim_pose.position.y,
                     self.amcl_pose.position.x,
                     self.amcl_pose.position.y,
-                    math.sqrt(
-                        (self.sim_pose.position.x - self.amcl_pose.position.x) ** 2
-                        + (self.sim_pose.position.y - self.amcl_pose.position.y) ** 2
-                    ),
+                    erroe,
                 )
             )
+            print(erroe)
 
     def save_to_csv(self, directory):
         os.makedirs(directory, exist_ok=True)
@@ -71,7 +73,7 @@ def main():
         rclpy.spin(data_recorder)
     except KeyboardInterrupt:
         pass
-    data_recorder.save_to_csv("/home/hrz/turtlebot4_ws/src/data")
+    data_recorder.save_to_csv("/home/hrz/turtlebot4_ws/src/data/sigma=0.18")
     data_recorder.destroy_node()
     rclpy.shutdown()
 
