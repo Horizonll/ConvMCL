@@ -1,5 +1,17 @@
 # ConvMCL
 
+安装依赖
+
+```bash
+rosdep install --from-path src -yi --rosdistro humble
+```
+
+编译
+
+```bash
+colcon build --symlink-install
+```
+
 启动仿真
 
 ```bash
