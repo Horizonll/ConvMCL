@@ -11,10 +11,10 @@ class Navigator(Node):
     def __init__(self):
         super().__init__("navigator")
         self.navigator = TurtleBot4Navigator()
-        if not self.navigator.getDockedStatus():
-            self.navigator.info("Docking before initializing pose")
-            self.navigator.dock()
-        time.sleep(2)
+        # if not self.navigator.getDockedStatus():
+        #     self.navigator.info("Docking before initializing pose")
+        #     self.navigator.dock()
+        # time.sleep(2)
         initial_pose = self.navigator.getPoseStamped(
             [0.0, 0.0], TurtleBot4Directions.NORTH
         )

@@ -15,13 +15,13 @@ colcon build --symlink-install
 启动仿真
 
 ```bash
-ros2 launch turtlebot4_ignition_bringup turtlebot4_ignition.launch.py world:=maze map:=maze.yaml rviz:=true localization:=true
+ros2 launch turtlebot4_ignition_bringup turtlebot4_ignition.launch.py world:=maze
 ```
 
 记录数据
 
 ```bash
-ros2 bag record /scan /tf /tf_static /map /odom /initialpose /sim_ground_truth_pose
+ros2 bag record /scan /tf /tf_static /odom /sim_ground_truth_pose
 ```
 
 设置初始位姿
